@@ -1,12 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace EventManager.Models;
 
-namespace EventManager.Models;
-
-public partial class Atendee
+public class Atendee
 {
-    public int    Id   { get; set; }
-    public string Name { get; set; } = null!;
+    public enum Status 
+    {
+        Active,
+        Inactive
+    }
 
-    public virtual ICollection<Event> Events { get; set; } = [];
+    public int     Id             { get; set; }
+    public string  Name           { get; set; } = null!;    
+    public Status  CurrentStatus  { get; set; }
+    public string? Description    { get; set; }
+    public string  ProfilePicPath { get; set; } = null!;
+
+    public List<Event>? Events { get; } = [];
 }

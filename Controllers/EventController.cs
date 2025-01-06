@@ -6,7 +6,12 @@ namespace EventManager.Controllers
 {
     public class EventController : Controller
     {
-        private readonly EventManagerContext _context = new();
+        private readonly EventManagerContext _context;
+
+        public EventController(EventManagerContext context) 
+        {
+            _context = context;
+        }
 
         public async Task<ActionResult> Index()
         {

@@ -1,15 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace EventManager.Models;
+﻿namespace EventManager.Models;
 
 public partial class Venue
 {
-    public int Id { get; set; }
+    public enum Status 
+    {
+        Available,
+        Unavailable
+    }
 
-    public string Name { get; set; } = null!;
+    public int          Id            { get; set; }
+    public string       Name          { get; set; } = null!;
+    public string       City          { get; set; } = null!;
+    public string       State         { get; set; } = null!;
+    public string       Country       { get; set; } = null!;
+    public string       Neighborhood  { get; set; } = null!;
+    public Status       CurrentStatus { get; set; }
+    public int?         HouseNumber   { get; set; }
 
-    public string Adress { get; set; } = null!;
-
-    public virtual ICollection<Event> Events { get; set; } = new List<Event>();
+    public List<Event> Events { get; set; } = [];
 }
