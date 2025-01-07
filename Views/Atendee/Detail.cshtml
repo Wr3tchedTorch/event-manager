@@ -1,0 +1,41 @@
+﻿@model EventManager.Models.Atendee
+
+@{
+    ViewData["Title"] = @Model.Name;
+
+    var statusColor = @Model.CurrentStatus == Atendee.Status.Active ? "text-success" : "text-danger";
+}
+
+<div class="col-12 mx-auto text-center">
+    <img src="~/@Model.ProfilePicPath" alt="profile pic" class="img-thumbnail rounded-circle col-4 mx-auto d-block my-3">
+    <h4>@Model.Name - <span class=@statusColor>@Model.CurrentStatus</span></h4>
+
+    <section class="mt-5">
+        <h5>Description</h5>
+        <p>@Model.Description</p>
+    </section>
+
+    <section class="my-1">
+        <h5>Events</h5>
+
+        @if (@Model.Events == null || @Model.Events.Count == 0)
+        {
+            <p>No Events.</p>
+        }
+        else 
+        {
+            <div class="list-group col-6 mx-auto">
+                @foreach(var item in @Model.Events) 
+                {                    
+                        <a href="@Url.Action("detail", "event", new { id = item.Id })" class="list-group-item list-group-item-action" aria-current="true">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">@item.Title</h5>
+                                <small>@item.Date</small>
+                            </div>
+                            <p class="mb-1">@item.Description</p>
+                        </a>
+                }
+            </div>
+        }
+    </section>
+</div>

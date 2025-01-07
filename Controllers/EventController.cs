@@ -21,5 +21,14 @@ namespace EventManager.Controllers
                                        .ToListAsync();
             return View(events);
         }
+
+        public async Task<ActionResult> Detail(int id)
+        {
+            var @event = await _context.Events
+                                       .Include(x => x.Atendees)
+                                       .Include(x => x.Venue)
+                                       .FirstOrDefaultAsync(x => x.Id == id);
+            return View(@event);
+        }
     }
 }
