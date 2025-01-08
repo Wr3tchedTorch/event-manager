@@ -1,0 +1,46 @@
+@model EventManager.Models.Event
+
+@{
+    ViewData["Title"] = "Create Event";
+}
+
+<h3>Create Event</h3>
+
+<form asp-action="create" method="post">    
+  <div class="mb-3">
+    <label for="Title" class="form-label">Title</label>
+    <input type="text" class="form-control" asp-for="Title">
+    <span asp-validation-for="Title" class="text-danger"></span>
+  </div>
+
+  <div class="mb-3">
+    <label for="Title" class="form-label">Date</label>
+    <input type="datetime-local" class="form-control" asp-for="Date">
+    <span asp-validation-for="Date" class="text-danger"></span>
+  </div>
+
+  <div class="mb-3">
+    <label for="Description" class="form-label">Description</label>
+    <input type="text" class="form-control" asp-for="Description">
+  </div>
+
+  <div class="mb-3">
+    <label for="VenueId" class="form-label">Venue</label>
+    <br>
+    <select asp-for="VenueId" asp-items="ViewBag.Venues" class="form-select"></select>
+    <br>
+    <a href="@Url.Action("create", "venue")" class="form-text">Create new venue.</a>
+  </div>
+
+  <div class="mb-3">
+    <label for="Atendees" class="form-label">Atendees</label>
+    <br>
+    <select asp-for="Atendees" asp-items="ViewBag.Atendees" multiple class="form-select"></select>
+    <br>
+    <a href="@Url.Action("create", "atendee")" class="form-text">Create new Atendee.</a>
+  </div>
+
+  <input type="text" asp-for="OrganizerId" value="1" hidden>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>

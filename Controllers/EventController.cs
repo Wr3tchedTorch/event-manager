@@ -1,5 +1,6 @@
 using EventManager.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace EventManager.Controllers
@@ -29,6 +30,25 @@ namespace EventManager.Controllers
                                        .Include(x => x.Venue)
                                        .FirstOrDefaultAsync(x => x.Id == id);
             return View(@event);
+        }
+
+        public ActionResult Create() 
+        {
+            ViewData["Venues"]   = new SelectList(_context.Venues, "Id", "Name");
+            ViewData["Atendees"] = new SelectList(_context.Atendees, "Id", "Name");
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Create([Bind("Id, Title, Date, Description, VenueId, OrganizerId")] Event myEvent, List<int> atendeesId) 
+        {            
+            if (ModelState.IsValid) 
+            {
+                await _context.Events.AddAsync(myEvent);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("index");
+            }
+            return View(myEvent);
         }
     }
 }
